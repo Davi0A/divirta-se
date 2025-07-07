@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-@property --angle {
+@property --angle{
     syntax: "<angle>";
     initial-value: 0deg;
     inherits: false;
@@ -51,7 +51,7 @@ body {
     /* width: 100px;
     height: 100px; */
     padding: 55px;
-    background: conic-gradient(from var(--angle),#FFF3FE,#16003D,#A755C2,#FFF3FE);
+    background: conic-gradient(from var(--angle),white,red, blue, yellow, white);
     border-radius: 5px;
     z-index: -2;
     animation: borderColor 5s linear infinite;
