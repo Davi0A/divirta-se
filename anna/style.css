@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
-@property --angle{
+@property --angle {
     syntax: "<angle>";
-    inherit: false;
+    inherits: false;
     initial-value: 0deg;
 }
 
@@ -40,7 +40,7 @@ video {
 section {
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, #170237);
+    background: #170237;
     z-index: -1;
 }
 
