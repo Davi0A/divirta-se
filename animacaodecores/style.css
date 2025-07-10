@@ -30,15 +30,16 @@ body {
 
 #item01 {
     position: relative;
+    left: 50%;
     top: 50%;
-    transform: translate(0%, -50%);
+    transform: translate(-50%, -50%);
 
-    margin: 0 auto;
     width: 100px;
     height: 100px;
     background-color: purple;
     border-radius: 5px;
     z-index: 0;
+    animation: rotate 5s ease infinite;
 }
 
 #item02{
@@ -53,7 +54,7 @@ body {
     padding: 55px;
     background: conic-gradient(from var(--angle),white,red, blue, yellow, white);
     border-radius: 5px;
-    z-index: -2;
+    z-index: -1;
     animation: borderColor 5s linear infinite;
 }
 
