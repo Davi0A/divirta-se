@@ -1,6 +1,23 @@
-const {buttonq1, buttonq2} = {
+const {buttonq1, buttonq2, buttonq3, buttonq4, buttonq5} = {
     buttonq1: document.querySelectorAll(".buttonq1"),
-    buttonq2: document.querySelectorAll(".buttonq2")
+    buttonq2: document.querySelectorAll(".buttonq2"),
+    buttonq3: document.querySelectorAll(".buttonq3"),
+    buttonq4: document.querySelectorAll(".buttonq4"),
+    buttonq5: document.querySelectorAll(".buttonq5")
+}
+const {linesq1, linesq2, linesq3, linesq4, linesq5} = {
+    linesq1: document.querySelectorAll(".linesq1"),
+    linesq2: document.querySelectorAll(".linesq2"),
+    linesq3: document.querySelectorAll(".linesq3"),
+    linesq4: document.querySelectorAll(".linesq4"),
+    linesq5: document.querySelectorAll(".linesq5")
+}
+const {answers1, answers2, answers3, answers4, answers5} = {
+    answers1: document.getElementById("answers1"),
+    answers2: document.getElementById("answers2"),
+    answers3: document.getElementById("answers3"),
+    answers4: document.getElementById("answers4"),
+    answers5: document.getElementById("answers5")
 }
 const {answer11, answer12, answer13, answer14} = {
     answer11: document.getElementById("answer11"),
@@ -8,33 +25,147 @@ const {answer11, answer12, answer13, answer14} = {
     answer13: document.getElementById("answer13"),
     answer14: document.getElementById("answer14")
 }
-const answers2 = document.querySelector("#answers2")
+const {answer21, answer22, answer23, answer24} = {
+    answer21: document.getElementById("answer21"),
+    answer22: document.getElementById("answer22"),
+    answer23: document.getElementById("answer23"),
+    answer24: document.getElementById("answer24")
+}
+const {answer31, answer32, answer33, answer34} = {
+    answer31: document.getElementById("answer31"),
+    answer32: document.getElementById("answer32"),
+    answer33: document.getElementById("answer33"),
+    answer34: document.getElementById("answer34")
+}
+const {answer41, answer42, answer43, answer44} = {
+    answer41: document.getElementById("answer41"),
+    answer42: document.getElementById("answer42"),
+    answer43: document.getElementById("answer43"),
+    answer44: document.getElementById("answer44")
+}
+const {answer51, answer52, answer53, answer54} = {
+    answer51: document.getElementById("answer51"),
+    answer52: document.getElementById("answer52"),
+    answer53: document.getElementById("answer53"),
+    answer54: document.getElementById("answer54")
+}
+
 const button = document.querySelectorAll(".button")
 const buttpad = document.querySelectorAll(".buttpad")
-const linesq1 = document.querySelectorAll(".linesq1")
 
+// for (i = 0; i < buttpad.length; i++) {
+//     buttpad[i].addEventListener("click", clicked);
+// }
 
-let clicado = function clicar() {
+let forQuest2 = answer13.addEventListener("click", function() {
+    answers2.setAttribute("style", "display: flex")
+
     for (i = 0; i < buttonq1.length; i++) {
-        button[i].classList.toggle("exit");
+        buttonq1[i].classList.remove(`enter${i+1}`)
+        buttonq1[i].classList.toggle(`exit${i+1}`)
     }
-}
 
-for (i = 0; i < buttonq1.length; i++) {
-    buttonq1[i].addEventListener("click", clicado);
-}
-
-answer13.addEventListener("click", function() {
     for (i = 0; i < buttonq2.length; i++) {
-        buttonq2[i].classList.toggle("enter")
+        buttonq2[i].classList.toggle(`enter${i+1}`)
+    }
+
+    for (i = 0; i < linesq2.length; i++) {
+        linesq2[i].setAttribute("style", "display: block")
+    }
+
+    for (i = 0; i < linesq1.length; i++) {
+        linesq1[i].classList.remove(`line${i+1}q`)
+        linesq1[i].classList.toggle(`linesexit`)
     }
 
     setTimeout(function () {
-        linesq1[0].classList.toggle("lineq11");
-        linesq1[1].classList.toggle("lineq12");
-        linesq1[2].classList.toggle("lineq13");
-        linesq1[3].classList.toggle("lineq14")
-    }, 2500)},
-
-    
+        for (i = 0; i < linesq2.length; i++) {
+            linesq2[i].classList.toggle(`line${i+1}q`)
+        }
+    }, 500)}
 )
+
+let forQuest3 = answer24.addEventListener("click", function() {
+    answers3.setAttribute("style", "display: flex")
+
+    for (i = 0; i < buttonq2.length; i++) {
+        buttonq2[i].classList.remove(`enter${i+1}`)
+        buttonq2[i].classList.toggle(`exit${i+1}`)
+    }
+
+    for (i = 0; i < buttonq3.length; i++) {
+        buttonq3[i].classList.toggle(`enter${i+1}`)
+    }
+
+    for (i = 0; i < linesq3.length; i++) {
+        linesq3[i].setAttribute("style", "display: block")
+    }
+
+    for (i = 0; i < linesq2.length; i++) {
+        linesq2[i].classList.remove(`line${i+1}q`)
+        linesq2[i].classList.toggle(`linesexit`)
+    }
+
+    setTimeout(function () {
+        for (i = 0; i < linesq3.length; i++) {
+            linesq3[i].classList.toggle(`line${i+1}q`)
+        }
+    }, 500)}
+)
+
+let forQuest4 = answer31.addEventListener("click", function() {
+    answers4.setAttribute("style", "display: flex")
+
+    for (i = 0; i < buttonq3.length; i++) {
+        buttonq3[i].classList.remove(`enter${i+1}`)
+        buttonq3[i].classList.toggle(`exit${i+1}`)
+    }
+
+    for (i = 0; i < buttonq4.length; i++) {
+        buttonq4[i].classList.toggle(`enter${i+1}`)
+    }
+
+    for (i = 0; i < linesq4.length; i++) {
+        linesq4[i].setAttribute("style", "display: block")
+    }
+
+    for (i = 0; i < linesq3.length; i++) {
+        linesq3[i].classList.remove(`line${i+1}q`)
+        linesq3[i].classList.toggle(`linesexit`)
+    }
+
+    setTimeout(function () {
+        for (i = 0; i < linesq4.length; i++) {
+            linesq4[i].classList.toggle(`line${i+1}q`)
+        }
+    }, 500)}
+)
+
+let forQuest5 = answer43.addEventListener("click", function() {
+    answers5.setAttribute("style", "display: flex")
+
+    for (i = 0; i < buttonq4.length; i++) {
+        buttonq4[i].classList.remove(`enter${i+1}`)
+        buttonq4[i].classList.toggle(`exit${i+1}`)
+    }
+
+    for (i = 0; i < buttonq5.length; i++) {
+        buttonq5[i].classList.toggle(`enter${i+1}`)
+    }
+
+    for (i = 0; i < linesq5.length; i++) {
+        linesq5[i].setAttribute("style", "display: block")
+    }
+
+    for (i = 0; i < linesq4.length; i++) {
+        linesq4[i].classList.remove(`line${i+1}q`)
+        linesq4[i].classList.toggle(`linesexit`)
+    }
+
+    setTimeout(function () {
+        for (i = 0; i < linesq5.length; i++) {
+            linesq5[i].classList.toggle(`line${i+1}q`)
+        }
+    }, 500)}
+)
+
