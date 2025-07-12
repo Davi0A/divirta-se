@@ -79,7 +79,7 @@ let forQuest1 = startpad.addEventListener("click", function() {
             buttonq1[i].classList.remove(`enter${i+1}`)
             buttonq1[i].setAttribute("style", "opacity: 1")
         }
-    }, 4000)}
+    }, 3600)}
 )
 
 let forQuest2 = answer13.addEventListener("click", function() {
@@ -107,7 +107,14 @@ let forQuest2 = answer13.addEventListener("click", function() {
         for (i = 0; i < linesq2.length; i++) {
             linesq2[i].classList.toggle(`line${i+1}q`)
         }
-    }, 500)}
+    }, 500)
+
+    setTimeout (function () {
+        for (i = 0; i < buttonq2.length; i++) {
+            buttonq2[i].classList.remove(`enter${i+1}`)
+            buttonq2[i].setAttribute("style", "opacity: 1")
+        }
+    }, 3100)}
 )
 
 let forQuest3 = answer24.addEventListener("click", function() {
@@ -135,7 +142,14 @@ let forQuest3 = answer24.addEventListener("click", function() {
         for (i = 0; i < linesq3.length; i++) {
             linesq3[i].classList.toggle(`line${i+1}q`)
         }
-    }, 500)}
+    }, 500)
+
+    setTimeout (function () {
+        for (i = 0; i < buttonq3.length; i++) {
+            buttonq3[i].classList.remove(`enter${i+1}`)
+            buttonq3[i].setAttribute("style", "opacity: 1")
+        }
+    }, 3100)}
 )
 
 let forQuest4 = answer31.addEventListener("click", function() {
@@ -163,7 +177,14 @@ let forQuest4 = answer31.addEventListener("click", function() {
         for (i = 0; i < linesq4.length; i++) {
             linesq4[i].classList.toggle(`line${i+1}q`)
         }
-    }, 500)}
+    }, 500)
+
+    setTimeout (function () {
+        for (i = 0; i < buttonq4.length; i++) {
+            buttonq4[i].classList.remove(`enter${i+1}`)
+            buttonq4[i].setAttribute("style", "opacity: 1")
+        }
+    }, 3100)}
 )
 
 let forQuest5 = answer43.addEventListener("click", function() {
@@ -191,5 +212,19 @@ let forQuest5 = answer43.addEventListener("click", function() {
         for (i = 0; i < linesq5.length; i++) {
             linesq5[i].classList.toggle(`line${i+1}q`)
         }
-    }, 500)}
+    }, 500)
+
+    setTimeout (function () {
+        for (i = 0; i < buttonq5.length; i++) {
+            buttonq5[i].classList.remove(`enter${i+1}`)
+            buttonq5[i].setAttribute("style", "opacity: 1")
+        }
+    }, 3100)}
 )
+
+async function delaysExit() {
+    const awaiForQuest1 = await forQuest2(forQuest1)
+    const awaiForQuest2 = await forQuest2(forQuest2)
+    const awaiForQuest3 = await forQuest2(forQuest3)
+    const awaiForQuest4 = await forQuest2(forQuest4)
+}
