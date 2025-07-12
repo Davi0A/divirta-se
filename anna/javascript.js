@@ -1,3 +1,5 @@
+const contquest = document.querySelector("#contquest")
+const startpad = document.querySelector("#startpad")
 const {buttonq1, buttonq2, buttonq3, buttonq4, buttonq5} = {
     buttonq1: document.querySelectorAll(".buttonq1"),
     buttonq2: document.querySelectorAll(".buttonq2"),
@@ -53,9 +55,32 @@ const {answer51, answer52, answer53, answer54} = {
 const button = document.querySelectorAll(".button")
 const buttpad = document.querySelectorAll(".buttpad")
 
-// for (i = 0; i < buttpad.length; i++) {
-//     buttpad[i].addEventListener("click", clicked);
-// }
+let forQuest1 = startpad.addEventListener("click", function() {
+    startpad.setAttribute("style", "animation: linesExit 1.5s ease; animation-fill-mode: forwards;")
+
+    setTimeout (function () {
+        answers1.setAttribute("style", "display: flex")
+        contquest.setAttribute("style", "display: flex")
+
+        for (i = 0; i < linesq1.length; i++) {
+            linesq1[i].setAttribute("style", "display: block")
+        }
+
+        for (i = 0; i < buttonq1.length; i++) {
+            buttonq1[i].classList.toggle(`enter${i+1}`)
+        }
+        
+        for (i = 0; i < linesq1.length; i++) {
+            linesq1[i].classList.toggle(`line${i+1}q`)}
+    }, 1000)
+    
+    setTimeout (function () {
+        for (i = 0; i < buttonq1.length; i++) {
+            buttonq1[i].classList.remove(`enter${i+1}`)
+            buttonq1[i].setAttribute("style", "opacity: 1")
+        }
+    }, 4000)}
+)
 
 let forQuest2 = answer13.addEventListener("click", function() {
     answers2.setAttribute("style", "display: flex")
@@ -168,4 +193,3 @@ let forQuest5 = answer43.addEventListener("click", function() {
         }
     }, 500)}
 )
-

@@ -80,6 +80,16 @@
     }
 }
 
+@keyframes  toAppear{
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 * {
     margin: 0px;
     padding: 0px;
@@ -93,10 +103,17 @@ body {
 }
 
 section {
+    position: relative;
     width: 100%;
     height: 100%;
-    background: url(imagens/Captura\ de\ tela\ 2025-07-07\ 210106.png) top center no-repeat;
-    background-size: cover;
+    background: linear-gradient(to right, #18003C, #0C0C3D);
+}
+
+video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #container {
@@ -112,29 +129,45 @@ section {
     height: 100%;
 }
 
-#contquest::after {
+#startpad {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    content: '';
-    width: 100%;
-    height: 100%;
-    padding: 5px;
-    border-radius: 25px;
-    background-color: black;
-    z-index: -1;
+    width: 300px;
+    height: 150px;
+    background: conic-gradient(from var(--angle), #FFF3FE, #16003d, #16003D, #A755C2, #FFF3FE);
+    animation: borderAnimated  3s linear infinite;
+    border-radius: 50%;
+}
+
+#start {
+    display: flex;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 285px;
+    height: 135px;
+    background: white;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
 }
 
 #contquest {
+    display: none;
     position: relative;
-    width: 300px;
-    height: 100px;
+    width: 310px;
+    height: 110px;
     background-color: white;
+    border: 5px solid black;
     border-radius: 20px;
     padding: 10px;
+    justify-content: center;
     text-align: center;
     top: 20px;
+    animation: toAppear 3s ease;
 
     & .line1q {
         animation: lineAnimated 2s ease 0s;
@@ -195,6 +228,7 @@ section {
     background: conic-gradient(from var(--angle), #FFF3FE, #16003d, #16003D, #A755C2, #FFF3FE);
     animation: borderAnimated 5s linear infinite;
     cursor: pointer;
+    opacity: 0;
 }
 
 #contanswer {
@@ -207,42 +241,42 @@ section {
     text-align: center;
 
     & .exit1 {
-        animation: desappier 3s ease;
+        animation: desappier 2.7s ease;
         animation-fill-mode: forwards;
     }
 
     & .exit2 {
-        animation: desappier 2.7s ease 0.3s;
+        animation: desappier 2.4s ease 0.3s;
         animation-fill-mode: forwards;
     }
 
     & .exit3 {
-        animation: desappier 2.3s ease 0.6s;
+        animation: desappier 2.1s ease 0.6s;
         animation-fill-mode: forwards;
     }
 
     & .exit4 {
-        animation: desappier 2.1s ease 0.9s;
+        animation: desappier 1.8s ease 0.9s;
         animation-fill-mode: forwards;
     }
 
     & .enter1 {
-        animation: enterAnimated 3s ease;
+        animation: enterAnimated 2.7s ease;
         animation-fill-mode: forwards;
     }
 
     & .enter2 {
-        animation: enterAnimated 2.7s ease 0.3s;
+        animation: enterAnimated 2.4s ease 0.3s;
         animation-fill-mode: forwards;
     }
 
     & .enter3 {
-        animation: enterAnimated 2.3s ease 0.6s;
+        animation: enterAnimated 2.1s ease 0.6s;
         animation-fill-mode: forwards;
     }
 
     & .enter4 {
-        animation: enterAnimated 2.1s ease 0.9s;
+        animation: enterAnimated 1.8s ease 0.9s;
         animation-fill-mode: forwards;
     }
 
@@ -253,9 +287,5 @@ section {
         justify-content: space-evenly;
         align-items: center;
         height: 100%;
-    }
-
-    & #answers1 {
-        display: flex;
     }
 }
