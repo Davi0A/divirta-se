@@ -1,6 +1,7 @@
 const contquest = document.querySelector("#contquest")
 const startpad = document.querySelector("#startpad")
 const wrong = document.querySelector("#imgwrong")
+const preventspan = document.querySelector("#preventspan")
 
 const linesQuest = ["linesq1", "linesq2", "linesq3", "linesq4", "linesq5", "linesq6"]
 const lines = Object.fromEntries(linesQuest.map(line => [line, document.querySelectorAll(`.${line}`)]))
@@ -43,11 +44,11 @@ async function forQuest1() {
                 }
 
                 for (let i = 0; i < buttonq.buttonq1.length; i++) {
-                    buttonq.buttonq1[i].classList.toggle(`enter${i+1}`)
+                    buttonq.buttonq1[i].classList.add(`enter${i+1}`)
                 }
                 
                 for (let i = 0; i < lines.linesq1.length; i++) {
-                    lines.linesq1[i].classList.toggle(`line${i+1}q`)}
+                    lines.linesq1[i].classList.add(`line${i+1}q`)}
             }, 1000)
             
             setTimeout (function () {
@@ -72,14 +73,19 @@ function configureQuestionTransition ({
     return new Promise ( function (resolve) {
         answerCorrect.addEventListener("click", function() {
             nextAnswers.setAttribute("style", "display: flex")
+            preventspan.setAttribute("style", "display: block")
 
             for (let i = 0; i < currentButtons.length; i++) {
                 currentButtons[i].classList.remove(`enter${i+1}`)
-                currentButtons[i].classList.toggle(`exit${i+1}`)
+                currentButtons[i].classList.add(`exit${i+1}`)
             }
 
+            setTimeout(() => {
+                preventspan.removeAttribute("style")
+            }, 700)
+
             for (let i = 0; i < nextButtons.length; i++) {
-                nextButtons[i].classList.toggle(`enter${i+1}`)
+                nextButtons[i].classList.add(`enter${i+1}`)
             }
 
             for (let i = 0; i < lines.linesq2.length; i++) {
@@ -88,12 +94,12 @@ function configureQuestionTransition ({
 
             for (let i = 0; i < currentLines.length; i++) {
                 currentLines[i].classList.remove(`line${i+1}q`)
-                currentLines[i].classList.toggle(`linesexit`)
+                currentLines[i].classList.add(`linesexit`)
             }
 
             setTimeout(function () {
                 for (let i = 0; i < nextLines.length; i++) {
-                    nextLines[i].classList.toggle(`line${i+1}q`)
+                    nextLines[i].classList.add(`line${i+1}q`)
                 }
             }, 500)
 
@@ -176,8 +182,12 @@ wait()
 
 function answerWrong() {
     wrong.setAttribute("style", "animation: wrongAnimate 0.8s ease; animation-fill-mode: forwards;")
+    preventspan.setAttribute("style", "display: block")
     setTimeout(() => {
         wrong.setAttribute("style", "animation: wrongAnimated 0.8s ease; animation-fill-mode: forwards;")
+        setTimeout(() => {
+            preventspan.removeAttribute("style")
+        }, 700)
     }, 1600)
 }
 
