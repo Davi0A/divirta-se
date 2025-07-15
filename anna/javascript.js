@@ -57,167 +57,94 @@ async function forQuest1() {
     })
 }
 
-function configureQuestionTransition {
-
-}
-
-
-async function forQuest2() {
+function configureQuestionTransition ({
+    answerCorrect,
+    nextAnswers,
+    currentButtons,
+    nextButtons,
+    nextLines,
+    currentLines
+}) {
     return new Promise ( function (resolve) {
-        answers1.answer13.addEventListener("click", function() {
-            answers.answers2.setAttribute("style", "display: flex")
+        answerCorrect.addEventListener("click", function() {
+            nextAnswers.setAttribute("style", "display: flex")
 
-            for (i = 0; i < buttonq.buttonq1.length; i++) {
-                buttonq.buttonq1[i].classList.remove(`enter${i+1}`)
-                buttonq.buttonq1[i].classList.toggle(`exit${i+1}`)
+            for (i = 0; i < currentButtons.length; i++) {
+                currentButtons[i].classList.remove(`enter${i+1}`)
+                currentButtons[i].classList.toggle(`exit${i+1}`)
             }
 
-            for (i = 0; i < buttonq.buttonq2.length; i++) {
-                buttonq.buttonq2[i].classList.toggle(`enter${i+1}`)
+            for (i = 0; i < nextButtons.length; i++) {
+                nextButtons[i].classList.toggle(`enter${i+1}`)
             }
 
             for (i = 0; i < lines.linesq2.length; i++) {
-                lines.linesq2[i].setAttribute("style", "display: block")
+                nextLines[i].setAttribute("style", "display: block")
             }
 
-            for (i = 0; i < lines.linesq1.length; i++) {
-                lines.linesq1[i].classList.remove(`line${i+1}q`)
-                lines.linesq1[i].classList.toggle(`linesexit`)
+            for (i = 0; i < currentLines.length; i++) {
+                currentLines[i].classList.remove(`line${i+1}q`)
+                currentLines[i].classList.toggle(`linesexit`)
             }
 
             setTimeout(function () {
-                for (i = 0; i < lines.linesq2.length; i++) {
-                    lines.linesq2[i].classList.toggle(`line${i+1}q`)
+                for (i = 0; i < nextLines.length; i++) {
+                    nextLines[i].classList.toggle(`line${i+1}q`)
                 }
             }, 500)
 
             setTimeout (function () {
-                for (i = 0; i < buttonq.buttonq2.length; i++) {
-                    buttonq.buttonq2[i].classList.remove(`enter${i+1}`)
-                    buttonq.buttonq2[i].setAttribute("style", "opacity: 1")
+                for (i = 0; i < nextButtons.length; i++) {
+                    nextButtons[i].classList.remove(`enter${i+1}`)
+                    nextButtons[i].setAttribute("style", "opacity: 1")
                 }
                 resolve()
             }, 3000)
         })
+    })
+}
+
+async function forQuest2() {
+    return configureQuestionTransition({
+        answerCorrect: answers1.answer13,
+        nextAnswers: answers.answers2,
+        currentButtons: buttonq.buttonq1,
+        nextButtons: buttonq.buttonq2,
+        nextLines: lines.linesq2,
+        currentLines: lines.linesq1
     })
 }
 
 async function forQuest3() {
-    return new Promise (function(resolve) {
-        answers2.answer24.addEventListener("click", function() {
-            answers.answers3.setAttribute("style", "display: flex")
-
-            for (i = 0; i < buttonq.buttonq2.length; i++) {
-                buttonq.buttonq2[i].classList.remove(`enter${i+1}`)
-                buttonq.buttonq2[i].classList.toggle(`exit${i+1}`)
-            }
-
-            for (i = 0; i < buttonq.buttonq3.length; i++) {
-                buttonq.buttonq3[i].classList.toggle(`enter${i+1}`)
-            }
-
-            for (i = 0; i < lines.linesq3.length; i++) {
-                lines.linesq3[i].setAttribute("style", "display: block")
-            }
-
-            for (i = 0; i < lines.linesq2.length; i++) {
-                lines.linesq2[i].classList.remove(`line${i+1}q`)
-                lines.linesq2[i].classList.toggle(`linesexit`)
-            }
-
-            setTimeout(function () {
-                for (i = 0; i < lines.linesq3.length; i++) {
-                    lines.linesq3[i].classList.toggle(`line${i+1}q`)
-                }
-            }, 500)
-
-            setTimeout (function () {
-                for (i = 0; i < buttonq.buttonq3.length; i++) {
-                    buttonq.buttonq3[i].classList.remove(`enter${i+1}`)
-                    buttonq.buttonq3[i].setAttribute("style", "opacity: 1")
-                resolve()
-                }
-            }, 3000)
-        })
+    return configureQuestionTransition({
+        answerCorrect: answers2.answer24,
+        nextAnswers: answers.answers3,
+        currentButtons: buttonq.buttonq2,
+        nextButtons: buttonq.buttonq3,
+        nextLines: lines.linesq3,
+        currentLines: lines.linesq2
     })
 }
 
 async function forQuest4() {
-    return new Promise (function(resolve) {
-        answers3.answer31.addEventListener("click", function() {
-            answers.answers4.setAttribute("style", "display: flex")
-
-            for (i = 0; i < buttonq.buttonq3.length; i++) {
-                buttonq.buttonq3[i].classList.remove(`enter${i+1}`)
-                buttonq.buttonq3[i].classList.toggle(`exit${i+1}`)
-            }
-
-            for (i = 0; i < buttonq.buttonq4.length; i++) {
-                buttonq.buttonq4[i].classList.toggle(`enter${i+1}`)
-            }
-
-            for (i = 0; i < lines.linesq4.length; i++) {
-                lines.linesq4[i].setAttribute("style", "display: block")
-            }
-
-            for (i = 0; i < lines.linesq3.length; i++) {
-                lines.linesq3[i].classList.remove(`line${i+1}q`)
-                lines.linesq3[i].classList.toggle(`linesexit`)
-            }
-
-            setTimeout(function () {
-                for (i = 0; i < lines.linesq4.length; i++) {
-                    lines.linesq4[i].classList.toggle(`line${i+1}q`)
-                }
-            }, 500)
-
-            setTimeout (function () {
-                for (i = 0; i < buttonq.buttonq4.length; i++) {
-                    buttonq.buttonq4[i].classList.remove(`enter${i+1}`)
-                    buttonq.buttonq4[i].setAttribute("style", "opacity: 1")
-                }
-                resolve()
-            }, 3000)
-        })
+    return configureQuestionTransition({
+        answerCorrect: answers3.answer31,
+        nextAnswers: answers.answers4,
+        currentButtons: buttonq.buttonq3,
+        nextButtons: buttonq.buttonq4,
+        nextLines: lines.linesq4,
+        currentLines: lines.linesq3
     })
 }
 
 async function forQuest5() {
-    return new Promise (function (resolve) {
-        answers4.answer43.addEventListener("click", function() {
-            answers.answers5.setAttribute("style", "display: flex")
-
-            for (i = 0; i < buttonq.buttonq4.length; i++) {
-                buttonq.buttonq4[i].classList.remove(`enter${i+1}`)
-                buttonq.buttonq4[i].classList.toggle(`exit${i+1}`)
-            }
-
-            for (i = 0; i < buttonq.buttonq5.length; i++) {
-                buttonq.buttonq5[i].classList.toggle(`enter${i+1}`)
-            }
-
-            for (i = 0; i < lines.linesq5.length; i++) {
-                lines.linesq5[i].setAttribute("style", "display: block")
-            }
-
-            for (i = 0; i < lines.linesq4.length; i++) {
-                lines.linesq4[i].classList.remove(`line${i+1}q`)
-                lines.linesq4[i].classList.toggle(`linesexit`)
-            }
-
-            setTimeout(function () {
-                for (i = 0; i < lines.linesq5.length; i++) {
-                    lines.linesq5[i].classList.toggle(`line${i+1}q`)
-                }
-            }, 500)
-
-            setTimeout (function () {
-                for (i = 0; i < buttonq.buttonq5.length; i++) {
-                    buttonq.buttonq5[i].classList.remove(`enter${i+1}`)
-                    buttonq.buttonq5[i].setAttribute("style", "opacity: 1")
-                }
-            }, 3000)
-        })
+    return configureQuestionTransition({
+        answerCorrect: answers4.answer43,
+        nextAnswers: answers.answers5,
+        currentButtons: buttonq.buttonq4,
+        nextButtons: buttonq.buttonq5,
+        nextLines: lines.linesq5,
+        currentLines: lines.linesq4
     })
 }
 
