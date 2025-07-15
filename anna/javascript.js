@@ -109,7 +109,7 @@ function configureQuestionTransition ({
                     nextButtons[i].setAttribute("style", "opacity: 1")
                 }
                 resolve()
-            }, 3000)
+            }, 2700)
         })
     })
 }
