@@ -1,5 +1,6 @@
 const contquest = document.querySelector("#contquest")
 const startpad = document.querySelector("#startpad")
+const wrong = document.querySelector("#imgwrong")
 
 const linesQuest = ["linesq1", "linesq2", "linesq3", "linesq4", "linesq5"]
 const lines = Object.fromEntries(linesQuest.map(line => [line, document.querySelectorAll(`.${line}`)]))
@@ -34,20 +35,20 @@ async function forQuest1() {
                 answers.answers1.setAttribute("style", "display: flex")
                 contquest.setAttribute("style", "display: flex")
 
-                for (i = 0; i < lines.linesq1.length; i++) {
+                for (let i = 0; i < lines.linesq1.length; i++) {
                     lines.linesq1[i].setAttribute("style", "display: block")
                 }
 
-                for (i = 0; i < buttonq.buttonq1.length; i++) {
+                for (let i = 0; i < buttonq.buttonq1.length; i++) {
                     buttonq.buttonq1[i].classList.toggle(`enter${i+1}`)
                 }
                 
-                for (i = 0; i < lines.linesq1.length; i++) {
+                for (let i = 0; i < lines.linesq1.length; i++) {
                     lines.linesq1[i].classList.toggle(`line${i+1}q`)}
             }, 1000)
             
             setTimeout (function () {
-                for (i = 0; i < buttonq.buttonq1.length; i++) {
+                for (let i = 0; i < buttonq.buttonq1.length; i++) {
                     buttonq.buttonq1[i].classList.remove(`enter${i+1}`)
                     buttonq.buttonq1[i].setAttribute("style", "opacity: 1")
                 }
@@ -69,32 +70,32 @@ function configureQuestionTransition ({
         answerCorrect.addEventListener("click", function() {
             nextAnswers.setAttribute("style", "display: flex")
 
-            for (i = 0; i < currentButtons.length; i++) {
+            for (let i = 0; i < currentButtons.length; i++) {
                 currentButtons[i].classList.remove(`enter${i+1}`)
                 currentButtons[i].classList.toggle(`exit${i+1}`)
             }
 
-            for (i = 0; i < nextButtons.length; i++) {
+            for (let i = 0; i < nextButtons.length; i++) {
                 nextButtons[i].classList.toggle(`enter${i+1}`)
             }
 
-            for (i = 0; i < lines.linesq2.length; i++) {
+            for (let i = 0; i < lines.linesq2.length; i++) {
                 nextLines[i].setAttribute("style", "display: block")
             }
 
-            for (i = 0; i < currentLines.length; i++) {
+            for (let i = 0; i < currentLines.length; i++) {
                 currentLines[i].classList.remove(`line${i+1}q`)
                 currentLines[i].classList.toggle(`linesexit`)
             }
 
             setTimeout(function () {
-                for (i = 0; i < nextLines.length; i++) {
+                for (let i = 0; i < nextLines.length; i++) {
                     nextLines[i].classList.toggle(`line${i+1}q`)
                 }
             }, 500)
 
             setTimeout (function () {
-                for (i = 0; i < nextButtons.length; i++) {
+                for (let i = 0; i < nextButtons.length; i++) {
                     nextButtons[i].classList.remove(`enter${i+1}`)
                     nextButtons[i].setAttribute("style", "opacity: 1")
                 }
@@ -157,3 +158,49 @@ async function wait() {
 }
 
 wait()
+
+function answerWrong() {
+    wrong.setAttribute("style", "animation: wrongAnimate 0.8s ease; animation-fill-mode: forwards;")
+    setTimeout(() => {
+        wrong.setAttribute("style", "animation: wrongAnimated 0.8s ease; animation-fill-mode: forwards;")
+    }, 1000)
+}
+
+function clickWrong({
+    answers,
+    answersCorrect
+}) {
+    for (let i = 0; i < answers.length; i++) {
+        answers.forEach(answer => {if (answer !== answersCorrect) {
+            answer.addEventListener("click", answerWrong)
+        }})
+    }
+}
+
+async function fixedQuest1() {
+    return clickWrong({
+        answers: answers1,
+        answersCorrect: answers1.answer13
+    })
+}
+
+async function fixedQuest2() {
+    return clickWrong({
+        answers: answers2,
+        answersCorrect: answers2.answer24
+    })
+}
+
+async function fixedQuest3() {
+    return clickWrong({
+        answers: answers3,
+        answersCorrect: answers3.answer31
+    })
+}
+
+async function fixedQuest4() {
+    return clickWrong({
+        answers: answers4,
+        answersCorrect: answers4.answer43
+    })
+}

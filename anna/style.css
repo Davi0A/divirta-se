@@ -92,6 +92,26 @@
     }
 }
 
+@keyframes  wrongAnimate{
+    from {
+        width: 0px;
+    }
+
+    to {
+        width: 420px;
+    }
+}
+
+@keyframes  wrongAnimated{
+    from {
+        width: 420px;
+    }
+
+    to {
+        width: 0px;
+    }
+}
+
 * {
     margin: 0px;
     padding: 0px;
@@ -112,6 +132,17 @@ section {
     /* background: linear-gradient(to right, #18003C, #0C0C3D); */
     background: url(imagens/Captura\ de\ tela\ 2025-07-07\ 210106.png) top center no-repeat;
     background-size: cover;
+}
+
+#imgwrong {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0px;
+    z-index: 1;
+    /* animation: wrongAnimated 0.8s ease;
+    animation-fill-mode: forwards; */
 }
 
 /* video {
