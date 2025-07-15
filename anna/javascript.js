@@ -2,6 +2,8 @@ const contquest = document.querySelector("#contquest")
 const startpad = document.querySelector("#startpad")
 const wrong = document.querySelector("#imgwrong")
 const preventspan = document.querySelector("#preventspan")
+const leftarrow = document.querySelector("#leftarrow")
+const rightarrow = document.querySelector("#rightarrow")
 
 const linesQuest = ["linesq1", "linesq2", "linesq3", "linesq4", "linesq5", "linesq6"]
 const lines = Object.fromEntries(linesQuest.map(line => [line, document.querySelectorAll(`.${line}`)]))
@@ -246,3 +248,27 @@ async function clickedWrong() {
 }
 
 clickedWrong()
+
+let indexImg = 0
+let answers6Values = Object.values(answers6)
+function arrow(indexImg) {
+    leftarrow.addEventListener("click", () => {
+        if (indexImg < answers6Values.length - 1) {
+            answers6Values[indexImg].classList.add("imgdisable");
+            answers6Values[indexImg+1].classList.add("imgactive");
+            indexImg++
+        } else {
+            answers6Values[answers6Values.length - 1].classList.add("imgdisable");
+            indexImg = 0
+            answers6Values[indexImg].classList.add("imgactive");
+            indexImg++
+        }
+    })
+}
+
+arrow(indexImg)
+
+console.log(leftarrow)
+console.log(answers6.answer61)
+console.log(document.querySelector("#answer61"))
+console.log(Object.values(answers6))
