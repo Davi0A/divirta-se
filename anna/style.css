@@ -141,8 +141,6 @@ section {
     transform: translate(-50%, -50%);
     width: 0px;
     z-index: 1;
-    /* animation: wrongAnimated 0.8s ease;
-    animation-fill-mode: forwards; */
 }
 
 /* video {
