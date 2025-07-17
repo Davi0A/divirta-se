@@ -117,6 +117,52 @@
         width: 260px;
         height: 308px;
         opacity: 1;
+        right: 0px;
+        z-index: 1;
+    }
+
+    50% {
+        right: -150px;
+    }
+
+
+    to {
+        width: 195px;
+        height: 231px;
+        opacity: 0;
+        right: -100px;
+        z-index: 0;
+    }
+}
+
+@keyframes  leftArrowEnter{
+    from {
+        width: 195px;
+        height: 231px;
+        opacity: 0;
+        left: -100px;
+        z-index: 0;
+    }
+
+    50% {
+        left: -100px;
+    }
+
+
+    to {
+        width: 260px;
+        height: 308px;
+        opacity: 1;
+        left: 0px;
+        z-index: 1;
+    }
+}
+
+@keyframes  rightArrowExit{
+    from {
+        width: 260px;
+        height: 308px;
+        opacity: 1;
         left: 0px;
         z-index: 1;
     }
@@ -224,7 +270,7 @@ section {
 }
 
 #startpad {
-    display: none;
+    display: block;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -252,7 +298,7 @@ section {
 }
 
 #contquest {
-    display: block;
+    display: none;
     position: relative;
     width: 310px;
     height: 110px;
@@ -327,7 +373,7 @@ section {
     background: conic-gradient(from var(--angle), #FFF3FE, #16003d, #16003D, #A755C2, #FFF3FE);
     animation: borderAnimated 5s linear infinite;
     cursor: pointer;
-    opacity: 1;
+    opacity: 0;
 }
 
 #contanswer {
@@ -340,42 +386,42 @@ section {
     text-align: center;
 
     & .exit1 {
-        animation: desappier 2.7s ease;
+        animation: desappier 2.7s ease, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
     & .exit2 {
-        animation: desappier 2.4s ease 0.3s;
+        animation: desappier 2.4s ease 0.3s, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
     & .exit3 {
-        animation: desappier 2.1s ease 0.6s;
+        animation: desappier 2.1s ease 0.6s, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
     & .exit4 {
-        animation: desappier 1.8s ease 0.9s;
+        animation: desappier 1.8s ease 0.9s, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
     & .enter1 {
-        animation: enterAnimated 2.7s ease;
+        animation: enterAnimated 2.7s ease, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
     & .enter2 {
-        animation: enterAnimated 2.4s ease 0.3s;
+        animation: enterAnimated 2.4s ease 0.3s, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
     & .enter3 {
-        animation: enterAnimated 2.1s ease 0.6s;
+        animation: enterAnimated 2.1s ease 0.6s, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
     & .enter4 {
-        animation: enterAnimated 1.8s ease 0.9s;
+        animation: enterAnimated 1.8s ease 0.9s, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
@@ -390,7 +436,7 @@ section {
 }
 
 #arrow {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: space-around;
     
@@ -405,7 +451,6 @@ section {
 }
 
 #answers6{
-    display: flex;
     position: relative;
     flex-flow: column nowrap;
     justify-content: space-between;
@@ -413,7 +458,7 @@ section {
     height: 80%;
 
     & .buttonq6 {
-        display: none;
+        height: 308px;
 
         & .button {
             width: 93.9%;
@@ -421,22 +466,31 @@ section {
         }
     }
 
-    & #answer61 {
+    & .leftdisable {
         display: block;
-        height: 308px;
-    }
-
-    & .imgdisable {
-        display: block;
-        height: 308px;
-        animation: leftArrowExit 1.5s ease-in-out;
+        position: absolute;
+        animation: leftArrowExit 1.5s ease-in-out, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
-    & .imgactive {
+    & .leftactive {
         display: block;
-        height: 308px;
-        animation: rightArrowEnter 1.5s ease-in-out;
+        position: relative;
+        animation: leftArrowEnter 1.5s ease-in-out, borderAnimated 5s linear infinite;
+        animation-fill-mode: forwards;
+    }
+
+    & .rightdisable {
+        display: block;
+        position: absolute;
+        animation: rightArrowExit 1.5s ease-in-out, borderAnimated 5s linear infinite;
+        animation-fill-mode: forwards;
+    }
+
+    & .rightactive {
+        display: block;
+        position: relative;
+        animation: rightArrowEnter 1.5s ease-in-out, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 }

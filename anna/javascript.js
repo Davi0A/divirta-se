@@ -2,6 +2,7 @@ const contquest = document.querySelector("#contquest")
 const startpad = document.querySelector("#startpad")
 const wrong = document.querySelector("#imgwrong")
 const preventspan = document.querySelector("#preventspan")
+const arrow = document.querySelector("#arrow")
 const leftarrow = document.querySelector("#leftarrow")
 const rightarrow = document.querySelector("#rightarrow")
 
@@ -36,6 +37,7 @@ async function forQuest1() {
     return new Promise (function (resolve) {
         startpad.addEventListener("click", function() {
             startpad.setAttribute("style", "animation: linesExit 1.5s ease; animation-fill-mode: forwards;")
+            preventspan.setAttribute("style", "display: block")
 
             setTimeout (function () {
                 answers.answers1.setAttribute("style", "display: flex")
@@ -57,6 +59,7 @@ async function forQuest1() {
                 for (let i = 0; i < buttonq.buttonq1.length; i++) {
                     buttonq.buttonq1[i].classList.remove(`enter${i+1}`)
                     buttonq.buttonq1[i].setAttribute("style", "opacity: 1")
+                    preventspan.setAttribute("style", "display: none")
                 }
                 resolve()
             }, 3500)
@@ -64,7 +67,7 @@ async function forQuest1() {
     })
 }
 
-function configureQuestionTransition ({
+function configureTypeOneQuestionTransition ({
     answerCorrect,
     nextAnswers,
     currentButtons,
@@ -81,10 +84,6 @@ function configureQuestionTransition ({
                 currentButtons[i].classList.remove(`enter${i+1}`)
                 currentButtons[i].classList.add(`exit${i+1}`)
             }
-
-            setTimeout(() => {
-                preventspan.removeAttribute("style")
-            }, 700)
 
             for (let i = 0; i < nextButtons.length; i++) {
                 nextButtons[i].classList.add(`enter${i+1}`)
@@ -109,15 +108,70 @@ function configureQuestionTransition ({
                 for (let i = 0; i < nextButtons.length; i++) {
                     nextButtons[i].classList.remove(`enter${i+1}`)
                     nextButtons[i].setAttribute("style", "opacity: 1")
+                    preventspan.removeAttribute("style")
                 }
                 resolve()
-            }, 2700)
+            }, 2600)
+        })
+    })
+}
+
+function configureTypeTwoQuestionTransition ({
+    answerCorrect,
+    nextAnswers,
+    currentButtons,
+    nextButtons,
+    nextLines,
+    currentLines
+}) {
+    return new Promise ( function (resolve) {
+        answerCorrect.addEventListener("click", function() {
+            nextAnswers.setAttribute("style", "display: flex")
+            preventspan.setAttribute("style", "display: block")
+            arrow.setAttribute("style", "display: flex; animation: toAppear 2s ease")
+
+            for (let i = 0; i < nextButtons.length; i++) {
+                nextButtons[i].setAttribute("style", "display: none")
+            }
+
+            nextButtons[0].setAttribute("style", "display: block")
+            nextButtons[0].classList.add("enter1")
+
+            for (let i = 0; i < currentButtons.length; i++) {
+                currentButtons[i].classList.remove(`enter${i+1}`)
+                currentButtons[i].classList.add(`exit${i+1}`)
+            }
+
+            for (let i = 0; i < lines.linesq2.length; i++) {
+                nextLines[i].setAttribute("style", "display: block")
+            }
+
+            for (let i = 0; i < currentLines.length; i++) {
+                currentLines[i].classList.remove(`line${i+1}q`)
+                currentLines[i].classList.add(`linesexit`)
+            }
+
+            setTimeout(function () {
+                for (let i = 0; i < nextLines.length; i++) {
+                    nextLines[i].classList.add(`line${i+1}q`)
+                }
+            }, 500)
+
+            setTimeout (function () {
+                nextButtons[0].classList.remove("enter1")
+
+                for (let i = 0; i < nextButtons.length; i++) {
+                    nextButtons[i].setAttribute("style", "opacity: 1")
+                }
+                preventspan.removeAttribute("style")
+                resolve()
+            }, 2600)
         })
     })
 }
 
 async function forQuest2() {
-    return configureQuestionTransition({
+    return configureTypeOneQuestionTransition({
         answerCorrect: answers1.answer13,
         nextAnswers: answers.answers2,
         currentButtons: buttonq.buttonq1,
@@ -128,7 +182,7 @@ async function forQuest2() {
 }
 
 async function forQuest3() {
-    return configureQuestionTransition({
+    return configureTypeOneQuestionTransition({
         answerCorrect: answers2.answer24,
         nextAnswers: answers.answers3,
         currentButtons: buttonq.buttonq2,
@@ -139,7 +193,7 @@ async function forQuest3() {
 }
 
 async function forQuest4() {
-    return configureQuestionTransition({
+    return configureTypeOneQuestionTransition({
         answerCorrect: answers3.answer31,
         nextAnswers: answers.answers4,
         currentButtons: buttonq.buttonq3,
@@ -150,7 +204,7 @@ async function forQuest4() {
 }
 
 async function forQuest5() {
-    return configureQuestionTransition({
+    return configureTypeOneQuestionTransition({
         answerCorrect: answers4.answer43,
         nextAnswers: answers.answers5,
         currentButtons: buttonq.buttonq4,
@@ -161,7 +215,7 @@ async function forQuest5() {
 }
 
 async function forQuest6() {
-    return configureQuestionTransition({
+    return configureTypeTwoQuestionTransition({
         answerCorrect: answers5.answer52,
         nextAnswers: answers.answers6,
         currentButtons: buttonq.buttonq5,
@@ -250,25 +304,61 @@ async function clickedWrong() {
 clickedWrong()
 
 let indexImg = 0
+let isAnimating = false
 let answers6Values = Object.values(answers6)
-function arrow(indexImg) {
+async function leftArrow() {
     leftarrow.addEventListener("click", () => {
-        if (indexImg < answers6Values.length - 1) {
-            answers6Values[indexImg].classList.add("imgdisable");
-            answers6Values[indexImg+1].classList.add("imgactive");
-            indexImg++
-        } else {
-            answers6Values[answers6Values.length - 1].classList.add("imgdisable");
-            indexImg = 0
-            answers6Values[indexImg].classList.add("imgactive");
-            indexImg++
-        }
+        if (isAnimating) {return}
+        isAnimating = true
+
+        let previousIndex = indexImg
+        indexImg = (indexImg - 1 + answers6Values.length) % answers6Values.length
+
+        answers6Values[indexImg].setAttribute("style", "display: block");
+        answers6Values[previousIndex].classList.add("leftdisable");
+        answers6Values[indexImg].classList.add("leftactive")
+
+        setTimeout(() => {
+            answers6Values[previousIndex].classList.remove("leftdisable");
+            answers6Values[indexImg].classList.remove("leftactive");
+            answers6Values[previousIndex].setAttribute("style", "display: none");
+            answers6Values[indexImg].setAttribute("style", "display: block")
+            isAnimating = false
+        }, 1500)
     })
 }
 
-arrow(indexImg)
+async function rightArrow() {
+    rightarrow.addEventListener("click", () => {
+        if (isAnimating) {return}
+        isAnimating = true
 
+        let previousIndex = indexImg
+        indexImg = (indexImg + 1) % answers6Values.length
+
+        console.log(previousIndex)
+        console.log(indexImg)
+        
+        answers6Values[indexImg].setAttribute("style", "display: block");
+        answers6Values[previousIndex].classList.add("rightdisable");
+        answers6Values[indexImg].classList.add("rightactive")
+
+        setTimeout(() => {
+            answers6Values[previousIndex].classList.remove("rightdisable");
+            answers6Values[indexImg].classList.remove("rightactive");
+            answers6Values[previousIndex].setAttribute("style", "display: none");
+            answers6Values[indexImg].setAttribute("style", "display: block")
+            isAnimating = false
+        }, 1500)
+    })
+}
+
+leftArrow()
+rightArrow()
+
+console.log(answers6Values.length - 1)
 console.log(leftarrow)
+console.log(rightarrow)
 console.log(answers6.answer61)
 console.log(document.querySelector("#answer61"))
 console.log(Object.values(answers6))
