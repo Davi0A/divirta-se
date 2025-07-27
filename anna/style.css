@@ -30,7 +30,7 @@
     }
 }
 
-@keyframes desappier {
+@keyframes buttonDesappear {
     from {
         rotate: 0deg;
         scale: 1;
@@ -72,7 +72,7 @@
     }
 }
 
-@keyframes linesExit {
+@keyframes toDesappear {
     from {
         opacity: 1;
     }
@@ -246,7 +246,7 @@ section {
     z-index: 1;
 }
 
-/* video {
+/* #video {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -281,20 +281,20 @@ section {
     animation: borderAnimated  3s linear infinite;
     border-radius: 50%;
     font-size: 2.5em;
-}
 
-#start {
-    display: flex;
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 285px;
-    height: 135px;
-    background: white;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
+    & #start {
+        display: flex;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 285px;
+        height: 135px;
+        background: white;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 #contquest {
@@ -347,33 +347,8 @@ section {
 
     & .linesexit {
         left: 0;
-        animation: linesExit 0.4s linear;
+        animation: toDesappear 0.4s linear;
     }
-}
-
-.button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 250px;
-    height: 50px;
-    background-color: white;
-    border-radius: 25px;
-}
-
-.buttpad {
-    position: relative;
-    width: 260px;
-    height: 60px;
-    border-radius: 30px;
-    background: conic-gradient(from var(--angle), #FFF3FE, #16003d, #16003D, #A755C2, #FFF3FE);
-    animation: borderAnimated 5s linear infinite;
-    cursor: pointer;
-    opacity: 0;
 }
 
 #contanswer {
@@ -385,43 +360,86 @@ section {
     height: 75%;
     text-align: center;
 
+    & .button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 250px;
+        height: 50px;
+        background-color: white;
+        border-radius: 25px;
+    }
+
+    & .buttpad {
+        position: relative;
+        width: 260px;
+        height: 60px;
+        border-radius: 30px;
+        background: conic-gradient(from var(--angle), #FFF3FE, #16003d, #16003D, #A755C2, #FFF3FE);
+        animation: borderAnimated 5s linear infinite;
+        cursor: pointer;
+        opacity: 0;
+    }
+
     & .exit1 {
-        animation: desappier 2.7s ease, borderAnimated 5s linear infinite;
+        display: block;
+        animation: buttonDesappear 2.7s ease, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
     & .exit2 {
-        animation: desappier 2.4s ease 0.3s, borderAnimated 5s linear infinite;
+        display: block;
+        animation: buttonDesappear 2.4s ease 0.3s, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
     & .exit3 {
-        animation: desappier 2.1s ease 0.6s, borderAnimated 5s linear infinite;
+        display: block;
+        animation: buttonDesappear 2.1s ease 0.6s, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
     & .exit4 {
-        animation: desappier 1.8s ease 0.9s, borderAnimated 5s linear infinite;
+        display: block;
+        animation: buttonDesappear 1.8s ease 0.9s, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
     & .enter1 {
+        display: block;
         animation: enterAnimated 2.7s ease, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
     & .enter2 {
+        display: block;
         animation: enterAnimated 2.4s ease 0.3s, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
     & .enter3 {
+        display: block;
         animation: enterAnimated 2.1s ease 0.6s, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
     & .enter4 {
+        display: block;
         animation: enterAnimated 1.8s ease 0.9s, borderAnimated 5s linear infinite;
+        animation-fill-mode: forwards;
+    }
+
+    & .toappear {
+        animation: toAppear 2.7s ease 1s, borderAnimated 5s linear infinite;
+        animation-fill-mode: forwards;
+    }
+
+    & .todesappear {
+        animation: toDesappear 2.7s ease 1s, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
@@ -433,64 +451,87 @@ section {
         align-items: center;
         height: 100%;
     }
-}
 
-#arrow {
-    display: none;
-    align-items: center;
-    justify-content: space-around;
-    
-    #leftarrow {
-        rotate: 180deg;
-    }
+    .answerstypetwo{
+        display: flex;
+        position: absolute;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+        align-items: center;
+        height: 80%;
 
-    & .arrow {
-        width: 25%;
-        cursor: pointer;
-    }
-}
+        & .buttonpadtypetwo {
+            display: none;
+            height: 308px;
 
-#answers6{
-    position: relative;
-    flex-flow: column nowrap;
-    justify-content: space-between;
-    align-items: center;
-    height: 80%;
+            & .button {
+                width: 93.9%;
+                height: 94.8%;
+            }
+        }
 
-    & .buttonq6 {
-        height: 308px;
+        & .buttononevisible {
+            display: block; 
+            animation: borderAnimated 5s linear infinite;
+        }
 
-        & .button {
-            width: 93.9%;
-            height: 94.8%;
+        & .buttoninvisible {
+            display: none; 
+            opacity: 1;
+        }
+
+        & .leftdisable {
+            display: block;
+            position: absolute;
+            animation: leftArrowExit 1.5s ease-in-out, borderAnimated 5s linear infinite;
+            animation-fill-mode: forwards;
+        }
+
+        & .leftactive {
+            display: block;
+            position: relative;
+            animation: leftArrowEnter 1.5s ease-in-out, borderAnimated 5s linear infinite;
+            animation-fill-mode: forwards;
+        }
+
+        & .rightdisable {
+            display: block;
+            position: absolute;
+            animation: rightArrowExit 1.5s ease-in-out, borderAnimated 5s linear infinite;
+            animation-fill-mode: forwards;
+        }
+
+        & .rightactive {
+            display: block;
+            position: relative;
+            animation: rightArrowEnter 1.5s ease-in-out, borderAnimated 5s linear infinite;
+            animation-fill-mode: forwards;
         }
     }
 
-    & .leftdisable {
-        display: block;
+    & #arrow {
+        display: none;
         position: absolute;
-        animation: leftArrowExit 1.5s ease-in-out, borderAnimated 5s linear infinite;
-        animation-fill-mode: forwards;
+        align-items: center;
+        justify-content: space-around;
+        opacity: 0;
+        width: 256px;
+        bottom: 10%;
+        z-index: 1;
+
+        & #leftarrow {
+            rotate: 180deg;
+        }
+
+        & .arrow {
+            width: 25%;
+            cursor: pointer;
+        }
     }
 
-    & .leftactive {
-        display: block;
-        position: relative;
-        animation: leftArrowEnter 1.5s ease-in-out, borderAnimated 5s linear infinite;
-        animation-fill-mode: forwards;
-    }
-
-    & .rightdisable {
-        display: block;
-        position: absolute;
-        animation: rightArrowExit 1.5s ease-in-out, borderAnimated 5s linear infinite;
-        animation-fill-mode: forwards;
-    }
-
-    & .rightactive {
-        display: block;
-        position: relative;
-        animation: rightArrowEnter 1.5s ease-in-out, borderAnimated 5s linear infinite;
+    & .arrowAppear {
+        display: flex; 
+        animation: toAppear 2.7s ease 1s; 
         animation-fill-mode: forwards;
     }
 }

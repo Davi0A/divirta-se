@@ -5,14 +5,15 @@ const preventspan = document.querySelector("#preventspan")
 const arrow = document.querySelector("#arrow")
 const leftarrow = document.querySelector("#leftarrow")
 const rightarrow = document.querySelector("#rightarrow")
+let answersValues = [];
 
-const linesQuest = ["linesq1", "linesq2", "linesq3", "linesq4", "linesq5", "linesq6"]
+const linesQuest = ["linesq1", "linesq2", "linesq3", "linesq4", "linesq5", "linesq6", "linesq7", "linesq8"]
 const lines = Object.fromEntries(linesQuest.map(line => [line, document.querySelectorAll(`.${line}`)]))
 
-const button = ["buttonq1", "buttonq2", "buttonq3", "buttonq4", "buttonq5", "buttonq6"]
+const button = ["buttonq1", "buttonq2", "buttonq3", "buttonq4", "buttonq5", "buttonq6", "buttonq7", "buttonq8"]
 const buttonq = Object.fromEntries(button.map(button => [button, document.querySelectorAll(`.${button}`)]))
 
-const answersq = ["answers1", "answers2", "answers3", "answers4", "answers5", "answers6"]
+const answersq = ["answers1", "answers2", "answers3", "answers4", "answers5", "answers6", "answers7", "answers8"]
 const answers = Object.fromEntries(answersq.map(answer => [answer, document.getElementById(`${answer}`)]))
 
 const answersq1 = ["answer11", "answer12", "answer13", "answer14"]
@@ -33,10 +34,16 @@ const answers5 = Object.fromEntries(answersq5.map(answerq5 => [answerq5, documen
 const answersq6 = ["answer61", "answer62", "answer63", "answer64"]
 const answers6 = Object.fromEntries(answersq6.map(answerq6 => [answerq6, document.getElementById(`${answerq6}`)]))
 
+const answersq7 = ["answer71", "answer72", "answer73", "answer74"]
+const answers7 = Object.fromEntries(answersq7.map(answerq7 => [answerq7, document.getElementById(`${answerq7}`)]))
+
+const answersq8 = ["answer81", "answer82", "answer83", "answer84"]
+const answers8 = Object.fromEntries(answersq8.map(answerq8 => [answerq8, document.getElementById(`${answerq8}`)]))
+
 async function forQuest1() {
     return new Promise (function (resolve) {
         startpad.addEventListener("click", function() {
-            startpad.setAttribute("style", "animation: linesExit 1.5s ease; animation-fill-mode: forwards;")
+            startpad.setAttribute("style", "animation: toDesappear 1.5s ease, borderAnimated  3s linear infinite; animation-fill-mode: forwards;")
             preventspan.setAttribute("style", "display: block")
 
             setTimeout (function () {
@@ -67,8 +74,9 @@ async function forQuest1() {
     })
 }
 
-function configureTypeOneQuestionTransition ({
+async function configureTypeOneQuestionTransition ({
     answerCorrect,
+    futureAnswers, // This variable is used in question type two
     nextAnswers,
     currentButtons,
     nextButtons,
@@ -89,7 +97,7 @@ function configureTypeOneQuestionTransition ({
                 nextButtons[i].classList.add(`enter${i+1}`)
             }
 
-            for (let i = 0; i < lines.linesq2.length; i++) {
+            for (let i = 0; i < nextLines.length; i++) {
                 nextLines[i].setAttribute("style", "display: block")
             }
 
@@ -110,14 +118,16 @@ function configureTypeOneQuestionTransition ({
                     nextButtons[i].setAttribute("style", "opacity: 1")
                     preventspan.removeAttribute("style")
                 }
+
                 resolve()
             }, 2600)
         })
     })
 }
 
-function configureTypeTwoQuestionTransition ({
+async function configureTypeTwoQuestionTransition ({
     answerCorrect,
+    futureAnswers,
     nextAnswers,
     currentButtons,
     nextButtons,
@@ -126,20 +136,83 @@ function configureTypeTwoQuestionTransition ({
 }) {
     return new Promise ( function (resolve) {
         answerCorrect.addEventListener("click", function() {
-            nextAnswers.setAttribute("style", "display: flex")
+            nextAnswers.classList.add("answerstypetwo")
             preventspan.setAttribute("style", "display: block")
-            arrow.setAttribute("style", "display: flex; animation: toAppear 2s ease")
+            arrow.setAttribute("style", "display:flex")
+            arrow.classList.add("arrowAppear")
+            console.log(futureAnswers)
+            answersValues = Object.values(futureAnswers)
+            console.log(answersValues.length)
 
             for (let i = 0; i < nextButtons.length; i++) {
-                nextButtons[i].setAttribute("style", "display: none")
+                nextButtons[i].classList.add("buttonpadtypetwo")
             }
 
             nextButtons[0].setAttribute("style", "display: block")
-            nextButtons[0].classList.add("enter1")
+            nextButtons[0].classList.add("toappear")
 
             for (let i = 0; i < currentButtons.length; i++) {
                 currentButtons[i].classList.remove(`enter${i+1}`)
                 currentButtons[i].classList.add(`exit${i+1}`)
+            }
+
+            for (let i = 0; i < nextLines.length; i++) {
+                nextLines[i].setAttribute("style", "display: block")
+            }
+
+            for (let i = 0; i < currentLines.length; i++) {
+                currentLines[i].classList.remove(`line${i+1}q`)
+                currentLines[i].classList.add(`linesexit`)
+            }
+
+            setTimeout(function () {
+                for (let i = 0; i < nextLines.length; i++) {
+                    nextLines[i].classList.add(`line${i+1}q`)
+                }
+            }, 500)
+
+            setTimeout (function () {
+                nextButtons[0].classList.remove("toappear")
+                nextButtons[0].classList.add("buttononevisible")
+                preventspan.removeAttribute("style")
+
+                for (let i = 0; i < nextButtons.length; i++) {
+                    nextButtons[i].classList.add("buttoninvisible")
+                }
+
+                resolve()
+            }, 2600)
+        })
+    })
+}
+
+async function configureTypeTwoTwoQuestionTransition ({
+    answerCorrect,
+    futureAnswers,
+    nextAnswers,
+    currentButtons,
+    nextButtons,
+    nextLines,
+    currentLines
+}) {
+    return new Promise ( function (resolve) {
+        answerCorrect.addEventListener("click", function() {
+            nextAnswers.classList.add("answerstypetwo")
+            preventspan.setAttribute("style", "display: block")
+            answersValues = Object.values(futureAnswers)
+            indexImg = 0
+
+            nextButtons[0].setAttribute("style", "display: block")
+            nextButtons[0].classList.add("toappear")
+            
+            for (let i = 0; i < nextButtons.length; i++) {
+                nextButtons[i].classList.add("buttonpadtypetwo")
+            }
+
+            currentButtons[0].classList.remove("buttononevisible")
+
+            for (let i = 0; i < currentButtons.length; i++) {
+                currentButtons[i].classList.add("todesappear")
             }
 
             for (let i = 0; i < lines.linesq2.length; i++) {
@@ -158,21 +231,125 @@ function configureTypeTwoQuestionTransition ({
             }, 500)
 
             setTimeout (function () {
-                nextButtons[0].classList.remove("enter1")
+                currentButtons[0].setAttribute("style", "display: none")
+                nextButtons[0].classList.add("buttononevisible")
+                preventspan.removeAttribute("style")
 
                 for (let i = 0; i < nextButtons.length; i++) {
-                    nextButtons[i].setAttribute("style", "opacity: 1")
+                    nextButtons[i].classList.add("buttoninvisible")
                 }
-                preventspan.removeAttribute("style")
+
                 resolve()
             }, 2600)
         })
     })
 }
 
+async function configureTypeTwoOneQuestionTransition ({
+    answerCorrect,
+    futureAnswers, // This variable is used in question type two
+    nextAnswers,
+    currentButtons,
+    nextButtons,
+    nextLines,
+    currentLines
+}) {
+    return new Promise ( function (resolve) {
+        answerCorrect.addEventListener("click", function() {
+            nextAnswers.setAttribute("style", "display: flex")
+            preventspan.setAttribute("style", "display: block")
+            arrow.classList.add("todesappear")
+
+            currentButtons[0].classList.remove("buttononevisible")
+
+            for (let i = 0; i < currentButtons.length; i++) {
+                currentButtons[i].classList.add("todesappear")
+            }
+
+            for (let i = 0; i < nextButtons.length; i++) {
+                nextButtons[i].classList.add(`enter${i+1}`)
+            }
+
+            for (let i = 0; i < nextLines.length; i++) {
+                nextLines[i].setAttribute("style", "display: block")
+            }
+
+            for (let i = 0; i < currentLines.length; i++) {
+                currentLines[i].classList.remove(`line${i+1}q`)
+                currentLines[i].classList.add(`linesexit`)
+            }
+
+            setTimeout(function () {
+                for (let i = 0; i < nextLines.length; i++) {
+                    nextLines[i].classList.add(`line${i+1}q`)
+                }
+            }, 500)
+
+            setTimeout (function () {
+                arrow.setAttribute.add("style", "display: none")
+                for (let i = 0; i < nextButtons.length; i++) {
+                    nextButtons[i].classList.remove(`enter${i+1}`)
+                    nextButtons[i].setAttribute("style", "opacity: 1")
+                    preventspan.removeAttribute("style")
+                }
+
+                resolve()
+            }, 2600)
+        })
+    })
+}
+
+let indexImg = 0
+let isAnimating = false
+
+async function leftArrow() {
+    leftarrow.addEventListener("click", () => {
+        if (isAnimating) {return}
+        isAnimating = true
+
+        let previousIndex = indexImg
+        indexImg = (indexImg - 1 + answersValues.length) % answersValues.length
+
+        answersValues[indexImg].setAttribute("style", "display: block");
+        answersValues[previousIndex].classList.add("leftdisable");
+        answersValues[indexImg].classList.add("leftactive")
+
+        setTimeout(() => {
+            answersValues[previousIndex].classList.remove("leftdisable");
+            answersValues[indexImg].classList.remove("leftactive");
+            answersValues[previousIndex].setAttribute("style", "display: none");
+            answersValues[indexImg].setAttribute("style", "display: block")
+            isAnimating = false
+        }, 1500)
+    })
+}
+
+async function rightArrow() {
+    rightarrow.addEventListener("click", () => {
+        if (isAnimating) {return}
+        isAnimating = true
+
+        let previousIndex = indexImg
+        indexImg = (indexImg + 1) % answersValues.length
+        
+        answersValues[indexImg].setAttribute("style", "display: block");
+        answersValues[previousIndex].classList.add("rightdisable");
+        answersValues[indexImg].classList.add("rightactive")
+
+        setTimeout(() => {
+            answersValues[previousIndex].classList.remove("rightdisable");
+            answersValues[indexImg].classList.remove("rightactive");
+            answersValues[previousIndex].setAttribute("style", "display: none");
+            answersValues[indexImg].setAttribute("style", "display: block")
+            isAnimating = false
+        }, 1500)
+    })
+}
+
 async function forQuest2() {
     return configureTypeOneQuestionTransition({
         answerCorrect: answers1.answer13,
+        futureAnswers: answers2,
         nextAnswers: answers.answers2,
         currentButtons: buttonq.buttonq1,
         nextButtons: buttonq.buttonq2,
@@ -184,6 +361,7 @@ async function forQuest2() {
 async function forQuest3() {
     return configureTypeOneQuestionTransition({
         answerCorrect: answers2.answer24,
+        futureAnswers: answers3,
         nextAnswers: answers.answers3,
         currentButtons: buttonq.buttonq2,
         nextButtons: buttonq.buttonq3,
@@ -195,6 +373,7 @@ async function forQuest3() {
 async function forQuest4() {
     return configureTypeOneQuestionTransition({
         answerCorrect: answers3.answer31,
+        futureAnswers: answers4,
         nextAnswers: answers.answers4,
         currentButtons: buttonq.buttonq3,
         nextButtons: buttonq.buttonq4,
@@ -206,6 +385,7 @@ async function forQuest4() {
 async function forQuest5() {
     return configureTypeOneQuestionTransition({
         answerCorrect: answers4.answer43,
+        futureAnswers: answers5,
         nextAnswers: answers.answers5,
         currentButtons: buttonq.buttonq4,
         nextButtons: buttonq.buttonq5,
@@ -217,11 +397,42 @@ async function forQuest5() {
 async function forQuest6() {
     return configureTypeTwoQuestionTransition({
         answerCorrect: answers5.answer52,
+        futureAnswers: answers6,
         nextAnswers: answers.answers6,
         currentButtons: buttonq.buttonq5,
         nextButtons: buttonq.buttonq6,
         nextLines: lines.linesq6,
         currentLines: lines.linesq5
+    }).then(() => {
+        leftArrow();
+        rightArrow();
+    })
+}
+
+async function forQuest7() {
+    return configureTypeTwoTwoQuestionTransition({
+        answerCorrect: answers6.answer64,
+        futureAnswers: answers7,
+        nextAnswers: answers.answers7,
+        currentButtons: buttonq.buttonq6,
+        nextButtons: buttonq.buttonq7,
+        nextLines: lines.linesq7,
+        currentLines: lines.linesq6
+    }).then(() => {
+        leftArrow();
+        rightArrow();
+    })
+}
+
+async function forQuest8() {
+    return configureTypeTwoOneQuestionTransition({
+        answerCorrect: answers7.answer71,
+        futureAnswers: answers8,
+        nextAnswers: answers.answers8,
+        currentButtons: buttonq.buttonq7,
+        nextButtons: buttonq.buttonq8,
+        nextLines: lines.linesq8,
+        currentLines: lines.linesq7
     })
 }
 
@@ -232,6 +443,7 @@ async function wait() {
     await forQuest4();
     await forQuest5();
     await forQuest6();
+    await forQuest7();
 }
 
 wait()
@@ -293,70 +505,41 @@ async function fixedQuest5() {
     })
 }
 
+async function fixedQuest6() {
+    return clickWrong({
+        answers: answers6,
+        answersCorrect: answer64
+    })
+}
+
+async function fixedQuest7() {
+    return clickWrong({
+        answers: answers7,
+        answersCorrect: answer71
+    })
+}
+
+async function fixedQuest8() {
+    return clickWrong({
+        answers: answers8,
+        answersCorrect: answer81
+    })
+}
+
 async function clickedWrong() {
     await fixedQuest1();
     await fixedQuest2();
     await fixedQuest3();
     await fixedQuest4();
     await fixedQuest5();
+    await fixedQuest6();
+    await fixedQuest7();
+    await fixedQuest8();
 }
 
 clickedWrong()
 
-let indexImg = 0
-let isAnimating = false
-let answers6Values = Object.values(answers6)
-async function leftArrow() {
-    leftarrow.addEventListener("click", () => {
-        if (isAnimating) {return}
-        isAnimating = true
-
-        let previousIndex = indexImg
-        indexImg = (indexImg - 1 + answers6Values.length) % answers6Values.length
-
-        answers6Values[indexImg].setAttribute("style", "display: block");
-        answers6Values[previousIndex].classList.add("leftdisable");
-        answers6Values[indexImg].classList.add("leftactive")
-
-        setTimeout(() => {
-            answers6Values[previousIndex].classList.remove("leftdisable");
-            answers6Values[indexImg].classList.remove("leftactive");
-            answers6Values[previousIndex].setAttribute("style", "display: none");
-            answers6Values[indexImg].setAttribute("style", "display: block")
-            isAnimating = false
-        }, 1500)
-    })
-}
-
-async function rightArrow() {
-    rightarrow.addEventListener("click", () => {
-        if (isAnimating) {return}
-        isAnimating = true
-
-        let previousIndex = indexImg
-        indexImg = (indexImg + 1) % answers6Values.length
-
-        console.log(previousIndex)
-        console.log(indexImg)
-        
-        answers6Values[indexImg].setAttribute("style", "display: block");
-        answers6Values[previousIndex].classList.add("rightdisable");
-        answers6Values[indexImg].classList.add("rightactive")
-
-        setTimeout(() => {
-            answers6Values[previousIndex].classList.remove("rightdisable");
-            answers6Values[indexImg].classList.remove("rightactive");
-            answers6Values[previousIndex].setAttribute("style", "display: none");
-            answers6Values[indexImg].setAttribute("style", "display: block")
-            isAnimating = false
-        }, 1500)
-    })
-}
-
-leftArrow()
-rightArrow()
-
-console.log(answers6Values.length - 1)
+console.log(answersValues.length - 1)
 console.log(leftarrow)
 console.log(rightarrow)
 console.log(answers6.answer61)
