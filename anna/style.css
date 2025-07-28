@@ -439,7 +439,7 @@ section {
     }
 
     & .todesappear {
-        animation: toDesappear 2.7s ease 1s, borderAnimated 5s linear infinite;
+        animation: toDesappear 2.7s ease, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 
@@ -532,6 +532,12 @@ section {
     & .arrowAppear {
         display: flex; 
         animation: toAppear 2.7s ease 1s; 
+        animation-fill-mode: forwards;
+    }
+
+    & .arrowDesappear {
+        display: flex;
+        animation: toDesappear 2.7s ease; 
         animation-fill-mode: forwards;
     }
 }

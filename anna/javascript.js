@@ -140,9 +140,7 @@ async function configureTypeTwoQuestionTransition ({
             preventspan.setAttribute("style", "display: block")
             arrow.setAttribute("style", "display:flex")
             arrow.classList.add("arrowAppear")
-            console.log(futureAnswers)
             answersValues = Object.values(futureAnswers)
-            console.log(answersValues.length)
 
             for (let i = 0; i < nextButtons.length; i++) {
                 nextButtons[i].classList.add("buttonpadtypetwo")
@@ -258,11 +256,11 @@ async function configureTypeTwoOneQuestionTransition ({
         answerCorrect.addEventListener("click", function() {
             nextAnswers.setAttribute("style", "display: flex")
             preventspan.setAttribute("style", "display: block")
-            arrow.classList.add("todesappear")
-
-            currentButtons[0].classList.remove("buttononevisible")
+            arrow.classList.remove("arrowAppear")
+            arrow.classList.add("arrowDesappear")
 
             for (let i = 0; i < currentButtons.length; i++) {
+                currentButtons[i].classList.remove("buttononevisible")
                 currentButtons[i].classList.add("todesappear")
             }
 
@@ -286,7 +284,7 @@ async function configureTypeTwoOneQuestionTransition ({
             }, 500)
 
             setTimeout (function () {
-                arrow.setAttribute.add("style", "display: none")
+                arrow.setAttribute("style", "display: none")
                 for (let i = 0; i < nextButtons.length; i++) {
                     nextButtons[i].classList.remove(`enter${i+1}`)
                     nextButtons[i].setAttribute("style", "opacity: 1")
@@ -306,6 +304,7 @@ async function leftArrow() {
     leftarrow.addEventListener("click", () => {
         if (isAnimating) {return}
         isAnimating = true
+        preventspan.setAttribute("style", "display: block")
 
         let previousIndex = indexImg
         indexImg = (indexImg - 1 + answersValues.length) % answersValues.length
@@ -319,6 +318,7 @@ async function leftArrow() {
             answersValues[indexImg].classList.remove("leftactive");
             answersValues[previousIndex].setAttribute("style", "display: none");
             answersValues[indexImg].setAttribute("style", "display: block")
+            preventspan.removeAttribute("style")
             isAnimating = false
         }, 1500)
     })
@@ -444,6 +444,7 @@ async function wait() {
     await forQuest5();
     await forQuest6();
     await forQuest7();
+    await forQuest8();
 }
 
 wait()
