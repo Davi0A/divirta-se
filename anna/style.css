@@ -204,6 +204,26 @@
     }
 }
 
+@keyframes  congratulationsAnimate{
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 70%;
+    }
+}
+
+@keyframes  congratulationsAnimated{
+    from {
+        width: 70%;
+    }
+
+    to {
+        width: 0%;
+    }
+}
+
 * {
     margin: 0px;
     padding: 0px;
@@ -222,7 +242,7 @@ section {
     width: 100%;
     height: 100%;
     /* background: linear-gradient(to right, #18003C, #0C0C3D); */
-    background: url(imagens/Captura\ de\ tela\ 2025-07-07\ 210106.png) top center no-repeat;
+    background: url(imagens/brilho.top.png) top center no-repeat;
     background-size: cover;
 }
 
@@ -308,7 +328,6 @@ section {
     padding: 10px;
     justify-content: center;
     top: 20px;
-    animation: toAppear 3s ease;
     font-size: 1em;
 
     & .line1q {
@@ -349,6 +368,16 @@ section {
         left: 0;
         animation: toDesappear 0.4s linear;
     }
+}
+
+.contquestAppear {
+    animation: toAppear 3s ease;
+    animation-fill-mode: forwards;
+}
+
+.contquestDesappear {
+    animation: toDesappear 2.7s ease;
+    animation-fill-mode: forwards;
 }
 
 #contanswer {
@@ -470,12 +499,12 @@ section {
             }
         }
 
-        & .buttononevisible {
+        & .buttonOneVisible {
             display: block; 
             animation: borderAnimated 5s linear infinite;
         }
 
-        & .buttoninvisible {
+        & .buttonInvisible {
             display: none; 
             opacity: 1;
         }
@@ -538,6 +567,67 @@ section {
     & .arrowDesappear {
         display: flex;
         animation: toDesappear 2.7s ease; 
+        animation-fill-mode: forwards;
+    }
+}
+
+#end {
+    display: none;
+    position: absolute;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+    & .button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 100px;
+        background-color: white;
+        border-radius: 25px;
+    }
+
+    & .buttpad {
+        display: block;
+        position: relative;
+        width: 310px;
+        height: 110px;
+        border-radius: 30px;
+        background: conic-gradient(from var(--angle), #FFF3FE, #16003d, #16003D, #A755C2, #FFF3FE);
+        animation: borderAnimated 5s linear infinite;
+        cursor: pointer;
+        opacity: 0;
+    }
+
+    & #congratulations {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0%;
+    }
+
+    & #restart {
+        display: none;
+        font-size: 2.5em;
+    }
+
+    & .toappear {
+        animation: toAppear 2.7s ease 1s, borderAnimated 5s linear infinite;
+        animation-fill-mode: forwards;
+    }
+
+    & .todesappear {
+        animation: toDesappear 2.7s ease, borderAnimated 5s linear infinite;
         animation-fill-mode: forwards;
     }
 }

@@ -5,6 +5,9 @@ const preventspan = document.querySelector("#preventspan")
 const arrow = document.querySelector("#arrow")
 const leftarrow = document.querySelector("#leftarrow")
 const rightarrow = document.querySelector("#rightarrow")
+const congratulations = document.querySelector("#congratulations")
+const end = document.querySelector("#end")
+const restart = document.querySelector("#restart")
 let answersValues = [];
 
 const linesQuest = ["linesq1", "linesq2", "linesq3", "linesq4", "linesq5", "linesq6", "linesq7", "linesq8", "linesq9", "linesq10"]
@@ -55,6 +58,7 @@ async function forQuest1() {
             setTimeout (function () {
                 answers.answers1.setAttribute("style", "display: flex")
                 contquest.setAttribute("style", "display: flex")
+                contquest.classList.add("contquestAppear")
 
                 for (let i = 0; i < lines.linesq1.length; i++) {
                     lines.linesq1[i].setAttribute("style", "display: block")
@@ -80,9 +84,103 @@ async function forQuest1() {
     })
 }
 
+async function forEndTypeOne({
+    answerCorrect,
+    currentButtons,
+}) {
+    return new Promise ( function (resolve) {
+        answerCorrect.addEventListener("click", function() {
+            preventspan.setAttribute("style", "display: block")
+            contquest.classList.add("contquestDesappear")
+
+            for (let i = 0; i < currentButtons.length; i++) {
+                currentButtons[i].classList.remove(`enter${i+1}`)
+                currentButtons[i].classList.add(`exit${i+1}`)
+            }
+
+            setTimeout(() => {
+                end.setAttribute("style", "display: flex")
+                congratulations.setAttribute("style", "display: block; animation: congratulationsAnimate 0.8s ease; animation-fill-mode: forwards;")
+
+                setTimeout(() => {
+                    congratulations.setAttribute("style", "animation: congratulationsAnimated 0.8s ease; animation-fill-mode: forwards;")
+                    restart.setAttribute("style", "display: block")
+                    restart.classList.add("toappear")
+
+                    setTimeout(() => {
+                        congratulations.removeAttribute("style")
+                        preventspan.removeAttribute("style")
+
+                        resolve()
+                    }, 2600)
+                }, (800 + 2000))
+
+            }, 2600)
+        })
+    })
+}
+
+async function forEndTypeTwo({
+    answerCorrect,
+    currentButtons,
+}) {
+    return new Promise ( function (resolve) {
+        answerCorrect.addEventListener("click", function() {
+            preventspan.setAttribute("style", "display: block")
+            arrow.classList.remove("arrowAppear")
+            arrow.classList.add("arrowDesappear")
+            contquest.classList.add("todesappear")
+
+            for (let i = 0; i < currentButtons.length; i++) {
+                currentButtons[i].classList.remove("buttononevisible")
+                currentButtons[i].classList.add("todesappear")
+            }
+
+            setTimeout(() => {
+                preventspan.removeAttribute("style")
+                end.setAttribute("style", "display: flex")
+                congratulations.setAttribute("style", "display: block; animation: congratulationsAnimate 0.8s ease; animation-fill-mode: forwards;")
+
+                setTimeout(() => {
+                    congratulations.setAttribute("style", "animation: congratulationsAnimated 0.8s ease; animation-fill-mode: forwards;")
+                    restart.setAttribute("style", "display: block")
+                    restart.classList.add("toappear")
+
+                    setTimeout(() => {
+                        congratulations.removeAttribute("style")
+                        preventspan.removeAttribute("style")
+
+                        resolve()
+                    }, 2600)
+                }, (800 + 2000))
+
+            }, 2600)
+        })
+    })
+}
+
+async function forStart() {
+    return new Promise( function(resolve) {
+        restart.addEventListener("click", function () {
+            preventspan.setAttribute("style", "display: block")
+            restart.classList.remove("toappear")
+            restart.classList.add("todesappear")
+
+            setTimeout(() => {
+                startpad.setAttribute("style", "animation: toAppear 1.5s ease, borderAnimated  3s linear infinite; animation-fill-mode: forwards;")
+                
+                setTimeout(() => {
+                    preventspan.removeAttribute("style")
+
+                    resolve()
+                }, 2600)
+            }, 2600)
+        }) 
+    })
+}
+
 async function configureTypeOneQuestionTransition ({
     answerCorrect,
-    futureAnswers, // This variable is used in question type two
     nextAnswers,
     currentButtons,
     nextButtons,
@@ -177,11 +275,11 @@ async function configureTypeTwoQuestionTransition ({
 
             setTimeout (function () {
                 nextButtons[0].classList.remove("toappear")
-                nextButtons[0].classList.add("buttononevisible")
+                nextButtons[0].classList.add("buttonOneVisible")
                 preventspan.removeAttribute("style")
 
                 for (let i = 0; i < nextButtons.length; i++) {
-                    nextButtons[i].classList.add("buttoninvisible")
+                    nextButtons[i].classList.add("buttonInvisible")
                 }
 
                 resolve()
@@ -213,7 +311,7 @@ async function configureTypeTwoTwoQuestionTransition ({
                 nextButtons[i].classList.add("buttonpadtypetwo")
             }
 
-            currentButtons[0].classList.remove("buttononevisible")
+            currentButtons[0].classList.remove("buttonOneVisible")
 
             for (let i = 0; i < currentButtons.length; i++) {
                 currentButtons[i].classList.add("todesappear")
@@ -236,11 +334,11 @@ async function configureTypeTwoTwoQuestionTransition ({
 
             setTimeout (function () {
                 currentButtons[0].setAttribute("style", "display: none")
-                nextButtons[0].classList.add("buttononevisible")
+                nextButtons[0].classList.add("buttonOneVisible")
                 preventspan.removeAttribute("style")
 
                 for (let i = 0; i < nextButtons.length; i++) {
-                    nextButtons[i].classList.add("buttoninvisible")
+                    nextButtons[i].classList.add("buttonInvisible")
                 }
 
                 resolve()
@@ -251,7 +349,6 @@ async function configureTypeTwoTwoQuestionTransition ({
 
 async function configureTypeTwoOneQuestionTransition ({
     answerCorrect,
-    futureAnswers, // This variable is used in question type two
     nextAnswers,
     currentButtons,
     nextButtons,
@@ -266,7 +363,7 @@ async function configureTypeTwoOneQuestionTransition ({
             arrow.classList.add("arrowDesappear")
 
             for (let i = 0; i < currentButtons.length; i++) {
-                currentButtons[i].classList.remove("buttononevisible")
+                currentButtons[i].classList.remove("buttonOneVisible")
                 currentButtons[i].classList.add("todesappear")
             }
 
@@ -466,6 +563,13 @@ async function forQuest10() {
     })
 }
 
+async function forFinish() {
+    return forEndTypeOne({
+        answerCorrect: answers10.answer102,
+        currentButtons: buttonq.buttonq10
+    })
+}
+
 async function wait() {
     await forQuest1();
     await forQuest2();
@@ -477,6 +581,8 @@ async function wait() {
     await forQuest8();
     await forQuest9();
     await forQuest10();
+    await forFinish();
+    await forStart();
 }
 
 wait()
@@ -484,6 +590,7 @@ wait()
 function answerWrong() {
     wrong.setAttribute("style", "animation: wrongAnimate 0.8s ease; animation-fill-mode: forwards;")
     preventspan.setAttribute("style", "display: block")
+    
     setTimeout(() => {
         wrong.setAttribute("style", "animation: wrongAnimated 0.8s ease; animation-fill-mode: forwards;")
         setTimeout(() => {
