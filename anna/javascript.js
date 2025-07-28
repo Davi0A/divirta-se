@@ -7,13 +7,13 @@ const leftarrow = document.querySelector("#leftarrow")
 const rightarrow = document.querySelector("#rightarrow")
 let answersValues = [];
 
-const linesQuest = ["linesq1", "linesq2", "linesq3", "linesq4", "linesq5", "linesq6", "linesq7", "linesq8"]
+const linesQuest = ["linesq1", "linesq2", "linesq3", "linesq4", "linesq5", "linesq6", "linesq7", "linesq8", "linesq9", "linesq10"]
 const lines = Object.fromEntries(linesQuest.map(line => [line, document.querySelectorAll(`.${line}`)]))
 
-const button = ["buttonq1", "buttonq2", "buttonq3", "buttonq4", "buttonq5", "buttonq6", "buttonq7", "buttonq8"]
+const button = ["buttonq1", "buttonq2", "buttonq3", "buttonq4", "buttonq5", "buttonq6", "buttonq7", "buttonq8", "buttonq9", "buttonq10"]
 const buttonq = Object.fromEntries(button.map(button => [button, document.querySelectorAll(`.${button}`)]))
 
-const answersq = ["answers1", "answers2", "answers3", "answers4", "answers5", "answers6", "answers7", "answers8"]
+const answersq = ["answers1", "answers2", "answers3", "answers4", "answers5", "answers6", "answers7", "answers8", "answers9", "answers10"]
 const answers = Object.fromEntries(answersq.map(answer => [answer, document.getElementById(`${answer}`)]))
 
 const answersq1 = ["answer11", "answer12", "answer13", "answer14"]
@@ -39,6 +39,12 @@ const answers7 = Object.fromEntries(answersq7.map(answerq7 => [answerq7, documen
 
 const answersq8 = ["answer81", "answer82", "answer83", "answer84"]
 const answers8 = Object.fromEntries(answersq8.map(answerq8 => [answerq8, document.getElementById(`${answerq8}`)]))
+
+const answersq9 = ["answer91", "answer92", "answer93", "answer94"]
+const answers9 = Object.fromEntries(answersq9.map(answerq9 => [answerq9, document.getElementById(`${answerq9}`)]))
+
+const answersq10 = ["answer101", "answer102", "answer103", "answer104"]
+const answers10 = Object.fromEntries(answersq10.map(answerq10 => [answerq10, document.getElementById(`${answerq10}`)]))
 
 async function forQuest1() {
     return new Promise (function (resolve) {
@@ -436,6 +442,30 @@ async function forQuest8() {
     })
 }
 
+async function forQuest9() {
+    return configureTypeOneQuestionTransition({
+        answerCorrect: answers8.answer81,
+        futureAnswers: answers9,
+        nextAnswers: answers.answers9,
+        currentButtons: buttonq.buttonq8,
+        nextButtons: buttonq.buttonq9,
+        nextLines: lines.linesq9,
+        currentLines: lines.linesq8
+    })
+}
+
+async function forQuest10() {
+    return configureTypeOneQuestionTransition({
+        answerCorrect: answers9.answer94,
+        futureAnswers: answers10,
+        nextAnswers: answers.answers10,
+        currentButtons: buttonq.buttonq9,
+        nextButtons: buttonq.buttonq10,
+        nextLines: lines.linesq10,
+        currentLines: lines.linesq9
+    })
+}
+
 async function wait() {
     await forQuest1();
     await forQuest2();
@@ -445,6 +475,8 @@ async function wait() {
     await forQuest6();
     await forQuest7();
     await forQuest8();
+    await forQuest9();
+    await forQuest10();
 }
 
 wait()
@@ -527,6 +559,20 @@ async function fixedQuest8() {
     })
 }
 
+async function fixedQuest9() {
+    return clickWrong({
+        answers: answers9,
+        answersCorrect: answer94
+    })
+}
+
+async function fixedQuest10() {
+    return clickWrong({
+        answers: answers10,
+        answersCorrect: answer102
+    })
+}
+
 async function clickedWrong() {
     await fixedQuest1();
     await fixedQuest2();
@@ -536,13 +582,8 @@ async function clickedWrong() {
     await fixedQuest6();
     await fixedQuest7();
     await fixedQuest8();
+    await fixedQuest9();
+    await fixedQuest10();
 }
 
 clickedWrong()
-
-console.log(answersValues.length - 1)
-console.log(leftarrow)
-console.log(rightarrow)
-console.log(answers6.answer61)
-console.log(document.querySelector("#answer61"))
-console.log(Object.values(answers6))
