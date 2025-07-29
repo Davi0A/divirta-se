@@ -489,6 +489,10 @@ section {
         justify-content: space-between;
         align-items: center;
         height: 80%;
+        width: 260px;
+
+        /* (Width deve ser um valor fixo)  
+        O width de answertypetwo deve ser o mesmo da caixa, para que durante a transição, a caixa se posicione no lugar sem a mudança dinâmica do width de answertypetwo. */
 
         & .buttonpadtypetwo {
             display: none;
@@ -510,29 +514,28 @@ section {
             opacity: 1;
         }
 
+        /* (.leftdisable; .leftactive; .rightdisable; .rightactive)
+        Posso trocar "position:absolute" por "postion:relative" ou virse-versa, estes atributos servem para que as caixas não colidem durante a transição.  */
+
         & .leftdisable {
-            display: block;
             position: absolute;
             animation: leftArrowExit 1.5s ease-in-out, borderAnimated 5s linear infinite;
             animation-fill-mode: forwards;
         }
 
         & .leftactive {
-            display: block;
             position: relative;
             animation: leftArrowEnter 1.5s ease-in-out, borderAnimated 5s linear infinite;
             animation-fill-mode: forwards;
         }
 
         & .rightdisable {
-            display: block;
             position: absolute;
             animation: rightArrowExit 1.5s ease-in-out, borderAnimated 5s linear infinite;
             animation-fill-mode: forwards;
         }
 
         & .rightactive {
-            display: block;
             position: relative;
             animation: rightArrowEnter 1.5s ease-in-out, borderAnimated 5s linear infinite;
             animation-fill-mode: forwards;
