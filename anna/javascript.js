@@ -1,5 +1,6 @@
 const contquest = document.querySelector("#contquest")
 const startpad = document.querySelector("#startpad")
+const contanswer = document.querySelector("#contanswer")
 const wrong = document.querySelector("#imgwrong")
 const preventspan = document.querySelector("#preventspan")
 const arrow = document.querySelector("#arrow")
@@ -49,10 +50,15 @@ const answers9 = Object.fromEntries(answersq9.map(answerq9 => [answerq9, documen
 const answersq10 = ["answer101", "answer102", "answer103", "answer104"]
 const answers10 = Object.fromEntries(answersq10.map(answerq10 => [answerq10, document.getElementById(`${answerq10}`)]))
 
+console.log(lines)
+console.log(answers)
+console.log(buttonq)
+
 async function forQuest1() {
     return new Promise (function (resolve) {
         startpad.addEventListener("click", function() {
             startpad.setAttribute("style", "animation: toDesappear 1.5s ease, borderAnimated  3s linear infinite; animation-fill-mode: forwards;")
+            contanswer.setAttribute("style", "display: flex")
             preventspan.setAttribute("style", "display: block")
 
             setTimeout (function () {
@@ -166,14 +172,25 @@ async function forStart() {
             restart.classList.remove("toappear")
             restart.classList.add("todesappear")
 
+            contanswer.setAttribute("style", "display: none")
+            contquest.classList.remove("contquestDesappear")
+            contquest.removeAttribute("style")
+            arrow.classList.remove("arrowDesappear")
+
+            Object.values(lines).forEach(group => group.forEach(linesq => {linesq.removeAttribute("style"), linesq.classList.remove("linesexit")}))
+            Object.values(answers).forEach(answer => answer.removeAttribute("style"))
+            Object.values(buttonq).forEach(group => group.forEach(button => { button.removeAttribute("style"), button.classList.remove("enter1", "enter2", "enter3", "enter4", "exit1", "exit2", "exit3", "exit4", "todesappear", "toappear", "buttonInvisible")}))
+
             setTimeout(() => {
                 startpad.setAttribute("style", "animation: toAppear 1.5s ease, borderAnimated  3s linear infinite; animation-fill-mode: forwards;")
-                
+                restart.classList.remove("todesappear")
+                restart.removeAttribute("style")
+                end.removeAttribute("style")              
                 setTimeout(() => {
                     preventspan.removeAttribute("style")
 
                     resolve()
-                }, 2600)
+                }, 1500)
             }, 2600)
         }) 
     })
